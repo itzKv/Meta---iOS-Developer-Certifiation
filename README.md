@@ -1,2 +1,2 @@
-# Meta---iOS-Developer-Certifiation
-Certification from META.
+# my-first-repo
+Belajar tentang gimana cara kerja Repository
