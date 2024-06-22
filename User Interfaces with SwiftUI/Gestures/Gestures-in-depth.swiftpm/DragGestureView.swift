@@ -8,8 +8,16 @@
 import SwiftUI
 
 struct DragGestureView: View {
+    @State private var offsetValue = CGSize.zero
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image("LittleLemon_Logo")
+            .offset(offsetValue)
+            .gesture(
+                DragGesture ()
+                    .onChanged { gesture in
+                        offsetValue = gesture.translation
+                    }
+            )
     }
 }
 

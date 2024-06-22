@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct RotationGesture: View {
+struct RotationGestureView: View {
     @State private var amount = Angle.zero
     @State private var finalAmount = Angle.zero
     var body: some View {
-        Image("littleLemonLogo")
+        Image("LittleLemon_Logo")
             .rotationEffect(amount + finalAmount)
             .gesture(
                 RotationGesture()
@@ -27,5 +27,5 @@ struct RotationGesture: View {
 }
 
 #Preview {
-    RotationGesture()
+    RotationGestureView()
 }

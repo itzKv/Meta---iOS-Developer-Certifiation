@@ -7,12 +7,30 @@
 
 import SwiftUI
 
-struct ReservationView: View {
+struct ReservationCalendar: View {
+    @State var reservationDate = Date()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            HStack {
+                Image(systemName: "calendar")
+                DatePicker(
+                    selection: $reservationDate, in: Date()...,
+                    displayedComponents: [.date, .hourAndMinute]
+                ) {}
+                Button(action: {print("do something!")}) {
+                    HStack {
+                        Image(systemName: "arror.right.circle")
+                        Text("Done")
+                    }
+                }.padding(20)
+            }
+        }
+        Text("\(reservationDate.formatted(date: .long, time: .complete))")
     }
+
 }
 
 #Preview {
-    ReservationView()
+    ReservationCalendar()
 }

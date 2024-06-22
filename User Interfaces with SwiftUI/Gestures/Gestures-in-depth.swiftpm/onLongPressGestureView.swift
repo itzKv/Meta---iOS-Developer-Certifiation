@@ -9,7 +9,17 @@ import SwiftUI
 
 struct onLongPressGestureView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Long press gesture").onLongPressGesture {
+            print("You tap long press")
+        }
+        Spacer()
+        Text("Long press gesture for 4 seconds")
+            .onLongPressGesture(minimumDuration: 4, maximumDistance: 15, perform: {
+                print("You tap long press min 4s")
+            },
+        onPressingChanged: { state in
+            print (state)
+        })
     }
 }
 
