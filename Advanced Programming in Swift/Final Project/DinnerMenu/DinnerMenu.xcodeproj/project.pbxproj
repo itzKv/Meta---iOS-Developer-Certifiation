@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		200657042C3462FC0097FB98 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200657032C3462FC0097FB98 /* MenuItem.swift */; };
+		200657062C34633C0097FB98 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200657052C34633C0097FB98 /* MockData.swift */; };
 		200C27FB2C2EFEE80073EE06 /* DinnerMenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200C27FA2C2EFEE80073EE06 /* DinnerMenuApp.swift */; };
 		200C27FD2C2EFEE80073EE06 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200C27FC2C2EFEE80073EE06 /* ContentView.swift */; };
 		200C27FF2C2EFEEB0073EE06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 200C27FE2C2EFEEB0073EE06 /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		200657032C3462FC0097FB98 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		200657052C34633C0097FB98 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		200C27F72C2EFEE80073EE06 /* DinnerMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DinnerMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		200C27FA2C2EFEE80073EE06 /* DinnerMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinnerMenuApp.swift; sourceTree = "<group>"; };
 		200C27FC2C2EFEE80073EE06 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 				200C28082C2EFFA80073EE06 /* MenuItemsView.swift */,
 				20D24E802C330AB10092EFD7 /* MenuItemProtocol.swift */,
 				20D24E7C2C3306890092EFD7 /* MenuCategory.swift */,
+				200657032C3462FC0097FB98 /* MenuItem.swift */,
+				200657052C34633C0097FB98 /* MockData.swift */,
 				20D24E7E2C3306B80092EFD7 /* Ingredient.swift */,
 				200C280A2C2EFFB20073EE06 /* MenuItemsOptionView.swift */,
 				200C280C2C2EFFBA0073EE06 /* MenuItemDetailsView.swift */,
@@ -161,8 +167,10 @@
 				200C27FB2C2EFEE80073EE06 /* DinnerMenuApp.swift in Sources */,
 				200C280B2C2EFFB20073EE06 /* MenuItemsOptionView.swift in Sources */,
 				20D24E7D2C3306890092EFD7 /* MenuCategory.swift in Sources */,
+				200657042C3462FC0097FB98 /* MenuItem.swift in Sources */,
 				200C280D2C2EFFBA0073EE06 /* MenuItemDetailsView.swift in Sources */,
 				20D24E812C330AB10092EFD7 /* MenuItemProtocol.swift in Sources */,
+				200657062C34633C0097FB98 /* MockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

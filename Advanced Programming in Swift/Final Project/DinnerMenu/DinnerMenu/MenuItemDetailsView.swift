@@ -8,34 +8,38 @@
 import SwiftUI
 
 struct MenuItemDetailsView: View {
+    var menuItem: MenuItem
     var body: some View {
         VStack {
-            Text("Food 5")
+            Text(menuItem.title)
                 .fontWeight(.heavy)
-                .font(.system(size: 40))
+                .font(.system(size: 20))
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .frame(width: 300, height: 50)
                 .padding(.leading, 20)
             
-            Image("Little Lemon logo")
+            Image(menuItem.title)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 200, height: 300)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             VStack (alignment: .center) {
                 Text("Price:")
-                Text("10.99")
+                Text("\(menuItem.price, specifier: "%.2f")")
                 Text("Ordered:")
-                Text("1000")
+                Text("\(menuItem.ordersCount)")
                 Text("Ingredients:")
-                Text("Spaghetti")
-                Text("Egg")
-                Text("Cheese")
+                ForEach(menuItem.ingredients, id: \.self) { ingredient in
+                    Text(ingredient.rawValue)
+                }
             }
         }
     }
 }
 
-#Preview {
-    MenuItemDetailsView()
+struct MenuItemDetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        let sampleMenuItem = MenuViewViewModel().foodMenuItems[0]
+        MenuItemDetailsView(menuItem: sampleMenuItem)
+    }
 }

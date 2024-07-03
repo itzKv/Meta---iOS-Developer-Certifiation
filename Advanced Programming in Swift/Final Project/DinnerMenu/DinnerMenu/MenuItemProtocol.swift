@@ -13,6 +13,5 @@ protocol MenuItemProtocol {
     var title: String { get }
     var menuCategory: MenuCategory { get }
     var ordersCount: Int { get set }
-    var priceValue: Int { get set }
     var ingredients: [Ingredient] { get set }
 }
