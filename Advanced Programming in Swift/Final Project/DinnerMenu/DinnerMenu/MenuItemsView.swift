@@ -17,6 +17,8 @@ let LittleLemonMenu = MenuViewViewModel()
 
 struct MenuItemsView: View {
     @StateObject var viewModel = LittleLemonMenu
+    @State var shouldPresentSheet = false
+    @State var selectedCategory: MenuCategory? = nil
     private var columnCount = 3 // how many items for every row
     
     var body: some View {
@@ -24,9 +26,16 @@ struct MenuItemsView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Spacer()
-                    NavigationLink(destination: MenuItemsOptionView()) {
+                    Button(action: {
+                        shouldPresentSheet.toggle()
+                    }) {
                         Image(systemName: "slider.horizontal.3")
                             .foregroundColor(.blue)
+                    }
+                    .sheet(isPresented: $shouldPresentSheet) {
+                        MenuItemsOptionView(shouldPresentSheet: $shouldPresentSheet, onCategorySelected: { category in
+                            selectedCategory = category
+                        })
                     }
                 }
                 Text("Menu")
@@ -36,37 +45,75 @@ struct MenuItemsView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 ScrollView(.vertical) {
                     VStack(alignment: .leading, spacing: 16) {
-                        // Food Section
-                        Text("Food")
-                            .padding(.leading, 8)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: columnCount), spacing: 30) {
-                            ForEach(viewModel.foodMenuItems) { menu in
-                                NavigationLink(destination: MenuItemDetailsView(menuItem: menu)) {
-                                    VStack {
-                                        Image(menu.title)
-                                            .resizable()
-                                            .frame(width: 110, height: 100)
-                                            .aspectRatio(contentMode: .fill)
-                                            .clipped()
-
-                                        Text(menu.title)
-                                            .foregroundColor(.black)
-                                            .font(.system(size: 12))
+                        if let selectedCategory = selectedCategory {
+                            Text(selectedCategory.rawValue)
+                                .padding(.leading, 8)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: columnCount), spacing: 30) {
+                                ForEach(menuItems(for: selectedCategory)) { menu in
+                                    NavigationLink(destination: MenuItemDetailsView(menuItem: menu)) {
+                                        VStack {
+                                            Image(menu.title)
+                                                .resizable()
+                                                .frame(width: 110, height: 100)
+                                                .aspectRatio(contentMode: .fill)
+                                                .clipped()
+                                            
+                                            Text(menu.title)
+                                                .foregroundColor(.black)
+                                                .font(.system(size: 12))
+                                        }
+                                        .padding(.bottom, 8)
                                     }
-                                    .padding(.bottom, 8)
+                                }
+                            }
+                            .padding(8)
+                        } else {
+                            ForEach(MenuCategory.allCases, id: \.self) { category in
+                                if !menuItems(for: category).isEmpty {
+                                    Text(category.rawValue)
+                                        .padding(.leading, 8)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: columnCount), spacing: 30) {
+                                        ForEach(menuItems(for: category)) { menu in
+                                            NavigationLink(destination: MenuItemDetailsView(menuItem: menu)) {
+                                                VStack {
+                                                    Image(menu.title)
+                                                        .resizable()
+                                                        .frame(width: 110, height: 100)
+                                                        .aspectRatio(contentMode: .fill)
+                                                        .clipped()
+                                                    
+                                                    Text(menu.title)
+                                                        .foregroundColor(.black)
+                                                        .font(.system(size: 12))
+                                                }
+                                                .padding(.bottom, 8)
+                                            }
+                                        }
+                                    }
+                                    .padding(8)
                                 }
                             }
                         }
-                        .padding(8)
                     }
-
                 }
                 .frame(maxWidth: .infinity)
             }
             .padding(8)
         }
         .navigationTitle("Menu")
+    }
+    
+    func menuItems(for category: MenuCategory) -> [MenuItem] {
+        switch category {
+        case .food:
+            return viewModel.foodMenuItems
+        case .drink:
+            return viewModel.drinkMenuItems
+        case .dessert:
+            return viewModel.dessertMenuItems
+        }
     }
 }
 
