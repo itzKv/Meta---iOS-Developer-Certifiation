@@ -8,14 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var showMenu = false
+    @State var isExpanding = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        MenuItemsViews()
     }
 }
 

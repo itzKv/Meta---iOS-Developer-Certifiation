@@ -19,8 +19,10 @@ struct MenuItemsView: View {
     @StateObject var viewModel = LittleLemonMenu
     @State var shouldPresentSheet = false
     @State var selectedCategory: MenuCategory? = nil
+    @State var sortBy: String = ""
+    @State var menuItems = MockData.foodMenuItems + MockData.drinkMenuItems + MockData.dessertMenuItems
     private var columnCount = 3 // how many items for every row
-    
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 8) {
@@ -35,7 +37,7 @@ struct MenuItemsView: View {
                     .sheet(isPresented: $shouldPresentSheet) {
                         MenuItemsOptionView(shouldPresentSheet: $shouldPresentSheet, onCategorySelected: { category in
                             selectedCategory = category
-                        })
+                        }, sortBy: $sortBy)
                     }
                 }
                 Text("Menu")
@@ -50,7 +52,7 @@ struct MenuItemsView: View {
                                 .padding(.leading, 8)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: columnCount), spacing: 30) {
-                                ForEach(menuItems(for: selectedCategory)) { menu in
+                                ForEach(sortedMenuItems(for: selectedCategory)) { menu in
                                     NavigationLink(destination: MenuItemDetailsView(menuItem: menu)) {
                                         VStack {
                                             Image(menu.title)
@@ -75,7 +77,7 @@ struct MenuItemsView: View {
                                         .padding(.leading, 8)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: columnCount), spacing: 30) {
-                                        ForEach(menuItems(for: category)) { menu in
+                                        ForEach(sortedMenuItems(for: category)) { menu in
                                             NavigationLink(destination: MenuItemDetailsView(menuItem: menu)) {
                                                 VStack {
                                                     Image(menu.title)
@@ -104,7 +106,21 @@ struct MenuItemsView: View {
         }
         .navigationTitle("Menu")
     }
-    
+
+    func sortedMenuItems(for category: MenuCategory) -> [MenuItem] {
+        let items = menuItems(for: category)
+        switch sortBy {
+        case "name":
+            return MockData.sortedByTitle(menuItems: items)
+        case "price":
+            return MockData.sortedByPrice(menuItems: items)
+        case "popular":
+            return MockData.sortedByPopularity(menuItems: items)
+        default:
+            return items
+        }
+    }
+
     func menuItems(for category: MenuCategory) -> [MenuItem] {
         switch category {
         case .food:

@@ -12,8 +12,8 @@ struct MenuItemDetailsView: View {
     var body: some View {
         VStack {
             Text(menuItem.title)
-                .fontWeight(.heavy)
-                .font(.system(size: 20))
+                .fontWeight(.bold)
+                .font(.system(size: 30))
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .frame(width: 300, height: 50)
                 .padding(.leading, 20)
@@ -25,10 +25,13 @@ struct MenuItemDetailsView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             VStack (alignment: .center) {
                 Text("Price:")
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 Text("\(menuItem.price, specifier: "%.2f")")
                 Text("Ordered:")
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 Text("\(menuItem.ordersCount)")
                 Text("Ingredients:")
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 ForEach(menuItem.ingredients, id: \.self) { ingredient in
                     Text(ingredient.rawValue)
                 }

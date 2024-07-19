@@ -10,6 +10,7 @@ import SwiftUI
 struct MenuItemsOptionView: View {
     @Binding var shouldPresentSheet: Bool
     var onCategorySelected: (MenuCategory) -> Void
+    @Binding var sortBy: String
     let categories = MenuCategory.allCases
     
     var body: some View {
@@ -25,21 +26,47 @@ struct MenuItemsOptionView: View {
                 .font(.system(size: 40))
                 .fontWeight(.bold)
             VStack(alignment: .leading) {
-                Section {
-                    Text("SELECTED CATEGORIES")
-                        .font(.caption)
-                    List(categories, id: \.self) { category in
+                List {
+                    Section(header: Text("SELECTED CATEGORIES")) {
+                        ForEach(categories, id: \.self) {category in
+                            Button(action: {
+                                onCategorySelected(category)
+                                shouldPresentSheet.toggle()
+                            }) {
+                                Text(category.rawValue)
+                                    .foregroundColor(.black)
+                            }
+                        }
+                    }
+
+                    Section(header: Text("SORT BY")) {
                         Button(action: {
-                            onCategorySelected(category)
+                            sortBy = "popular"
                             shouldPresentSheet.toggle()
                         }) {
-                            Text(category.rawValue)
+                            Text("Most Popular")
+                                .foregroundColor(.black)
+                        }
+                        Button(action: {
+                            sortBy = "price"
+                            shouldPresentSheet.toggle()
+                        }) {
+                            Text("Price $-$$$")
+                                .foregroundColor(.black)
+                        }
+                        Button(action: {
+                            sortBy = "name"
+                            shouldPresentSheet.toggle()
+                        }) {
+                            Text("A-Z")
                                 .foregroundColor(.black)
                         }
                     }
                 }
+            
             }
         }
+        
         .padding(16)
     }
     
@@ -57,9 +84,10 @@ struct MenuItemsOptionView: View {
 struct MenuItemsOptionView_Previews: PreviewProvider {
     @State static var shouldPresentSheet = true
     @State static var menuItems: [MenuItem] = MockData.foodMenuItems
+    @State static var sortBy: String = "price"
     
     static var previews: some View {
-        MenuItemsOptionView(shouldPresentSheet: $shouldPresentSheet, onCategorySelected: {_ in})
+        MenuItemsOptionView(shouldPresentSheet: $shouldPresentSheet, onCategorySelected: {_ in}, sortBy: $sortBy)
     }
 }
 

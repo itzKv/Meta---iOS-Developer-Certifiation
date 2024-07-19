@@ -40,4 +40,14 @@ struct MockData {
         MenuItem(price: 5.99, title: "Ice Cream", menuCategory: .dessert, ordersCount: 6, ingredients: []),
         MenuItem(price: 6.99, title: "Cheesecake", menuCategory: .dessert, ordersCount: 3, ingredients: [])
     ]
+    
+    static func sortedByPopularity(menuItems: [MenuItem]) -> [MenuItem] {
+        menuItems.sorted { $0.ordersCount > $1.ordersCount }
+    }
+    static func sortedByTitle(menuItems: [MenuItem]) -> [MenuItem] {
+        menuItems.sorted { $0.title < $1.title }
+    }
+    static func sortedByPrice(menuItems: [MenuItem]) -> [MenuItem] {
+        menuItems.sorted { $0.price < $1.price }
+    }
 }
